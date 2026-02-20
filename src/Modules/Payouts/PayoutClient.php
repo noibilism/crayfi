@@ -21,12 +21,12 @@ class PayoutClient
      */
     public function paymentMethods(string $countryCode): array
     {
-        return $this->client->get("/payout/payment-methods/{$countryCode}");
+        return $this->client->get("/api/payout/payment-methods/{$countryCode}");
     }
 
     /**
      * Get Banks
-     * 
+     *
      * @param string|null $countryCode
      * @return array
      */
@@ -36,39 +36,39 @@ class PayoutClient
         if ($countryCode) {
             $query['countryCode'] = $countryCode;
         }
-        return $this->client->get('/payout/banks', $query);
+        return $this->client->get('/api/payout/banks', $query);
     }
 
     /**
      * Account Name Lookup
-     * 
+     *
      * @param array $data ['account_number', 'bank_code', 'country_code']
      * @return array
      */
     public function validateAccount(array $data): array
     {
-        return $this->client->post('/payout/accounts/validate', $data);
+        return $this->client->post('/api/payout/accounts/validate', $data);
     }
 
     /**
      * Process Transfer (Disburse)
-     * 
+     *
      * @param array $data
      * @return array
      */
     public function disburse(array $data): array
     {
-        return $this->client->post('/payout/disburse', $data);
+        return $this->client->post('/api/payout/disburse', $data);
     }
 
     /**
      * Verify Transaction
-     * 
+     *
      * @param string $transactionId
      * @return array
      */
     public function requery(string $transactionId): array
     {
-        return $this->client->get("/payout/requery/{$transactionId}");
+        return $this->client->get("/api/payout/requery/{$transactionId}");
     }
 }

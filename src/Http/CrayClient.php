@@ -41,7 +41,7 @@ class CrayClient
             $response = $this->http->baseUrl($baseUrl)
                 ->withToken($apiKey)
                 ->timeout($timeout)
-                ->retry($retries, 100)
+                ->retry($retries, 100, null, false)
                 ->acceptJson()
                 ->$method($endpoint, $data);
 

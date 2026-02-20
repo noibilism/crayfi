@@ -21,17 +21,17 @@ class RefundClient
      */
     public function initiate(array $data): array
     {
-        return $this->client->post('/v2/refund/initiate', $data);
+        return $this->client->post('/api/v2/refund/initiate', $data);
     }
 
     /**
      * Check Refund Status
-     * 
+     *
      * @param string $reference
      * @return array
      */
     public function query(string $reference): array
     {
-        return $this->client->get("/v2/refund/query/{$reference}");
+        return $this->client->get("/api/v2/refund/query/{$reference}");
     }
 }
