@@ -42,6 +42,7 @@ class CrayClient
                 ->withToken($apiKey)
                 ->timeout($timeout)
                 ->retry($retries, 100, null, false)
+                ->asJson()
                 ->acceptJson()
                 ->$method($endpoint, $data);
 

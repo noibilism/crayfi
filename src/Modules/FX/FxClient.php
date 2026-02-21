@@ -21,7 +21,7 @@ class FxClient
      */
     public function rates(array $data): array
     {
-        return $this->client->post('/api/v2/merchant/rates', $data);
+        return $this->client->post('/api/rates', $data);
     }
 
     /**
@@ -32,7 +32,7 @@ class FxClient
      */
     public function ratesByDestination(array $data): array
     {
-        return $this->client->post('/api/v2/merchant/rates/destination', $data);
+        return $this->client->post('/api/rates/destination', $data);
     }
 
     /**
@@ -43,7 +43,7 @@ class FxClient
      */
     public function quote(array $data): array
     {
-        return $this->client->post('/api/v2/merchant/quote', $data);
+        return $this->client->post('/api/quote', $data);
     }
 
     /**
@@ -54,7 +54,7 @@ class FxClient
      */
     public function convert(array $data): array
     {
-        return $this->client->post('/api/v2/merchant/conversions/convert', $data);
+        return $this->client->post('/api/conversions', $data);
     }
 
     /**
@@ -64,6 +64,18 @@ class FxClient
      */
     public function conversions(): array
     {
-        return $this->client->get('/api/v2/merchant/conversions');
+        return $this->client->get('/api/conversions');
+    }
+
+    /**
+     * Dispute Conversion
+     *
+     * @param string $conversionId
+     * @param array $data
+     * @return array
+     */
+    public function disputeConversion(string $conversionId, array $data = []): array
+    {
+        return $this->client->post("/api/conversions/{$conversionId}/dispute", $data);
     }
 }
