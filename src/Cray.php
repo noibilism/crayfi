@@ -9,6 +9,7 @@ use Cray\Laravel\Modules\Wallets\WalletClient;
 use Cray\Laravel\Modules\FX\FxClient;
 use Cray\Laravel\Modules\Payouts\PayoutClient;
 use Cray\Laravel\Modules\Refunds\RefundClient;
+use Cray\Laravel\Modules\VirtualAccounts\VirtualAccountClient;
 
 class Cray
 {
@@ -47,5 +48,10 @@ class Cray
     public function refunds(): RefundClient
     {
         return new RefundClient($this->client);
+    }
+
+    public function virtualAccounts(): VirtualAccountClient
+    {
+        return new VirtualAccountClient($this->client);
     }
 }

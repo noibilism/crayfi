@@ -219,6 +219,37 @@ $refund = Cray::refunds()->initiate([
 $status = Cray::refunds()->query('refund_reference_id');
 ```
 
+### 7. Virtual Accounts
+
+Create and manage NGN virtual collection accounts (Monnify, Wema, etc.).
+
+```php
+// Create / approve a virtual account
+$va = Cray::virtualAccounts()->create([
+    'provider'   => 'monnify',
+    'account_name' => 'John Doe',
+    'bvn'        => '12345678901',
+]);
+
+// Initiate a virtual account request (pre-create step)
+$initiated = Cray::virtualAccounts()->initiate([
+    'provider' => 'wema',
+    'bvn'      => '12345678901',
+]);
+
+// List all virtual accounts for the merchant
+$list = Cray::virtualAccounts()->list();
+
+// Get available virtual account providers
+$providers = Cray::virtualAccounts()->providers();
+
+// Submit OTP for Wema two-step flow
+$result = Cray::virtualAccounts()->submitOtp([
+    'otp'        => '123456',
+    'request_id' => 'req_abc123',
+]);
+```
+
 ## Error Handling
 
 The package throws specific exceptions for different error scenarios. You should catch these exceptions to handle errors gracefully.
