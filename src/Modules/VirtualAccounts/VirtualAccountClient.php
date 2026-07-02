@@ -56,13 +56,24 @@ class VirtualAccountClient
     }
 
     /**
-     * Submit Wema OTP to complete the two-step Wema flow
+     * Submit Wema OTP to generate the wallet and complete account creation.
      *
-     * @param array $data ['merchant_id', 'otp', 'customer_email']
+     * @param array $data ['otp', 'customer_email']
+     * @return array
+     */
+    public function generateWallet(array $data): array
+    {
+        return $this->client->post('/api/virtual-accounts/generate-wallet', $data);
+    }
+
+    /**
+     * Backward-compatible alias for the Wema OTP wallet generation flow.
+     *
+     * @param array $data ['otp', 'customer_email']
      * @return array
      */
     public function submitOtp(array $data): array
     {
-        return $this->client->post('/api/virtual-accounts/submit-otp', $data);
+        return $this->generateWallet($data);
     }
 }

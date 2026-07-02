@@ -201,7 +201,32 @@ $transfer = Cray::payouts()->disburse([
 $status = Cray::payouts()->requery('transaction_id');
 ```
 
-### 6. Refunds
+### 6. Crypto Payouts
+
+Send stablecoin payouts to on-chain wallet beneficiaries.
+
+```php
+// Get supported crypto payout assets
+$assets = Cray::cryptoPayouts()->supportedAssets();
+
+// Add a wallet beneficiary
+$beneficiary = Cray::cryptoPayouts()->addBeneficiary([
+    'name' => 'OMU',
+    'asset' => 'TRX_USDT_S2UZ',
+    'wallet_address' => 'wallet_address',
+]);
+
+// Initiate a crypto payout
+$payout = Cray::cryptoPayouts()->initiatePayout([
+    'amount' => '2',
+    'currency' => 'TRX_USDT_S2UZ',
+    'address_reference' => 'beneficiary_reference',
+    'customer_reference' => 'customer_ref_123',
+    'narration' => 'Stablecoin payout',
+]);
+```
+
+### 7. Refunds
 
 Initiate and track refunds.
 
@@ -219,7 +244,19 @@ $refund = Cray::refunds()->initiate([
 $status = Cray::refunds()->query('refund_reference_id');
 ```
 
-### 7. Virtual Accounts
+### 8. Failed Payout Webhooks
+
+Retrieve and retry failed payout webhook deliveries.
+
+```php
+// List failed payout webhooks
+$failed = Cray::webhooks()->failedPayoutWebhooks();
+
+// Retry a failed payout webhook
+$retry = Cray::webhooks()->retryFailedPayoutWebhook('50');
+```
+
+### 9. Virtual Accounts
 
 Create and manage NGN virtual collection accounts (Monnify, Wema, etc.).
 
@@ -250,9 +287,8 @@ $list = Cray::virtualAccounts()->list();
 // Get available virtual account providers
 $providers = Cray::virtualAccounts()->providers();
 
-// Submit OTP to complete the two-step Wema flow
-$result = Cray::virtualAccounts()->submitOtp([
-    'merchant_id'    => '123',
+// Submit OTP to generate the Wema wallet
+$result = Cray::virtualAccounts()->generateWallet([
     'otp'            => '768238',
     'customer_email' => 'hello@gmail.com',
 ]);
